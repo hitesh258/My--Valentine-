@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine?</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff0f3;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.2);
+            z-index: 10;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        h1 { color: #ff4d6d; font-size: 24px; }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 25px;
+            position: relative;
+            height: 60px;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+
+        #yesBtn { background-color: #ff4d6d; color: white; }
+
+        #noBtn {
+            background-color: #adb5bd;
+            color: white;
+            position: absolute; /* Changed to absolute for easier moving */
+            right: 60px;
+        }
+
+        img { width: 200px; height: auto; margin-bottom: 15px; border-radius: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="card" id="content">
+        <img id="mainGif" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ3NueW56cjRreHd0NHR6bmZ3dmRzZ2ZneHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KzM1lAfJjCW3Ic7cH6/giphy.gif" alt="Cute Bear">
+        <h1 id="questionText">Will you be my Valentine? ❤️</h1>
+        <div class="btn-container">
+            <button id="yesBtn" onclick="accepted()">Yes</button>
+            <button id="noBtn" onmouseover="dodge()">No</button>
+        </div>
+    </div>
+
+    <script>
+        let yesScale = 1;
+        const noMessages = ["No", "Are you sure?", "Pwease?", "Think again!", "Last chance!", "Pretty please?"];
+        let msgIndex = 0;
+
+        function dodge() {
+            const noBtn = document.getElementById('noBtn');
+            const yesBtn = document.getElementById('yesBtn');
+
+            // Move the No button anywhere inside the screen
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 50);
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+
+            // Make Yes button grow bigger
+            yesScale += 0.4;
+            yesBtn.style.transform = `scale(${yesScale})`;
+
+            // Change text on No button
+            noBtn.innerText = noMessages[msgIndex];
+            msgIndex = (msgIndex + 1) % noMessages.length;
+        }
+
+        function accepted() {
+            document.getElementById('content').innerHTML = `
+                <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ3NueW56cjRreHd0NHR6bmZ3dmRzZ2ZneHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/MDJ9IbZY5ZqzdnzOux/giphy.gif" alt="Happy Cat">
+                <h1 style="color: #ff4d6d;">Yay! See you soon! ❤️🌹</h1>
+            `;
+        }
+    </script>
+</body>
+</html>
